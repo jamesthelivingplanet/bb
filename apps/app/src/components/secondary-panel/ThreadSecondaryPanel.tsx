@@ -903,6 +903,7 @@ function ThreadSecondaryPanelContent({
               pendingGitDiffScrollPath={pendingGitDiffScrollPath}
               workspaceRootPath={workspaceRootPath}
               matchedPaths={matchedPaths}
+              searchQuery={searchQuery}
             />
           ) : activeSurfaceFixedTab?.tab.kind === "thread-info" ? (
             <div className="flex min-h-0 flex-1 flex-col">

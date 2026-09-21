@@ -33,6 +33,7 @@ export interface BbDiffProps extends DiffPresentation {
   file: ParsedGitDiffFile;
   patchText?: string;
   fullFileContents: ExperimentalDiffFullFileContents | null;
+  searchQuery?: string;
   className?: string;
   onSelectionAddToChat?: (text: string) => void;
 }

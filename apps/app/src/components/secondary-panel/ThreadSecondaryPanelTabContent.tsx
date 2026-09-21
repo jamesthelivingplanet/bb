@@ -56,6 +56,7 @@ interface GitDiffTabContentProps {
   pendingGitDiffScrollPath?: string | null;
   workspaceRootPath?: string | null;
   matchedPaths: Set<string> | null;
+  searchQuery?: string;
 }
 
 interface WorkspaceFilePreviewTabContentProps {
@@ -175,6 +176,7 @@ export function GitDiffTabContent({
   pendingGitDiffScrollPath,
   workspaceRootPath,
   matchedPaths,
+  searchQuery = "",
 }: GitDiffTabContentProps) {
   const isQueryEnabled =
     isPanelOpen && Boolean(environmentId) && target !== undefined;
@@ -324,6 +326,7 @@ export function GitDiffTabContent({
         onOpenFilePreview={onOpenFilePreview}
         onRequestFileContents={onRequestFileContents}
         onSelectionAddToChat={onSelectionAddToChat}
+        searchQuery={searchQuery}
       />
     </div>
   );

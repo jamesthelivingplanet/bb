@@ -32,9 +32,9 @@ const bbDiff = vi.hoisted(() => ({
 
 vi.mock("./BbDiff", async () => {
   const React = await import("react");
-  bbDiff.loaded = true;
   return {
     default: (props: Record<string, unknown>) => {
+      bbDiff.loaded = true;
       bbDiff.lastProps = props;
       return React.createElement(
         "div",
@@ -116,6 +116,20 @@ afterEach(() => {
 });
 
 describe("DiffHost", () => {
+  it("passes the diff search query to BB's built-in renderer", async () => {
+    render(
+      <DiffHost
+        file={parseFixture()}
+        fullFileContents={null}
+        searchQuery=".html"
+      />,
+    );
+
+    await screen.findByTestId("bb-diff");
+
+    expect(bbDiff.lastProps?.searchQuery).toBe(".html");
+  });
+
   it("skips BB's renderer and full-file enrichment when a replacement never delegates", async () => {
     registerDiffRenderer((props) => {
       receivedProps.push(props);

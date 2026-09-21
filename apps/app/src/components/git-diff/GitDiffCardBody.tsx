@@ -670,6 +670,7 @@ interface GitDiffCardSvgBodyProps {
   fullFileContents: ExperimentalDiffFullFileContents | null;
   presentation: DiffPresentation;
   onSelectionAddToChat?: (text: string) => void;
+  searchQuery?: string;
 }
 
 function GitDiffCardSvgBody({
@@ -681,6 +682,7 @@ function GitDiffCardSvgBody({
   fullFileContents,
   presentation,
   onSelectionAddToChat,
+  searchQuery,
 }: GitDiffCardSvgBodyProps) {
   return displayMode === "preview" ? (
     <GitDiffCardImageBody
@@ -695,6 +697,7 @@ function GitDiffCardSvgBody({
       fullFileContents={fullFileContents}
       {...presentation}
       onSelectionAddToChat={onSelectionAddToChat}
+      searchQuery={searchQuery}
     />
   );
 }
@@ -705,6 +708,7 @@ interface GitDiffCardBodyProps {
   svgDisplayMode: GitDiffCardSvgDisplayMode;
   reservesCollapseGutter: boolean;
   onSelectionAddToChat?: (text: string) => void;
+  searchQuery?: string;
 }
 
 export function GitDiffCardBody({
@@ -713,6 +717,7 @@ export function GitDiffCardBody({
   svgDisplayMode,
   reservesCollapseGutter,
   onSelectionAddToChat,
+  searchQuery,
 }: GitDiffCardBodyProps) {
   const {
     bodySentinelRef,
@@ -770,6 +775,7 @@ export function GitDiffCardBody({
           fullFileContents={fullFileContents}
           presentation={presentation}
           onSelectionAddToChat={onSelectionAddToChat}
+          searchQuery={searchQuery}
         />
       ) : (
         <>
@@ -780,6 +786,7 @@ export function GitDiffCardBody({
             {...presentation}
             fallback={<DiffLoadingSkeleton />}
             onSelectionAddToChat={onSelectionAddToChat}
+            searchQuery={searchQuery}
           />
           <GitDiffCardContextExpansionFooter
             contextExpansion={contextExpansion}

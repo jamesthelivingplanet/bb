@@ -19,6 +19,7 @@ interface DiffHostProps extends Partial<DiffPresentation> {
   file: ParsedGitDiffFile;
   patchText?: string;
   fullFileContents: ExperimentalDiffFullFileContents | null;
+  searchQuery?: string;
   className?: string;
   fallback?: ReactNode;
   onSelectionAddToChat?: (text: string) => void;
@@ -28,6 +29,7 @@ export function DiffHost({
   file,
   patchText,
   fullFileContents,
+  searchQuery,
   view = DEFAULT_DIFF_VIEW,
   overflow = DEFAULT_CODE_OVERFLOW,
   showLineNumbers = true,
@@ -48,6 +50,7 @@ export function DiffHost({
         file={file}
         patchText={patchText}
         fullFileContents={fullFileContents}
+        searchQuery={searchQuery}
         view={view}
         overflow={overflow}
         showLineNumbers={showLineNumbers}

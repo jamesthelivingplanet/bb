@@ -16,6 +16,7 @@ import { useResolvedCodeThemePair } from "@/lib/code-theme";
 import { usePreferredTheme } from "@/hooks/useTheme";
 import { cn } from "@bb/shared-ui/lib/utils";
 import type { BbDiffProps } from "./code-rendering";
+import { useDiffSearchHighlights } from "./useDiffSearchHighlights";
 
 const DIFF_VIEW_STYLE = {
   "--diffs-font-size": "12px",
@@ -28,6 +29,7 @@ function BbDiff({
   file,
   patchText,
   fullFileContents,
+  searchQuery,
   view,
   overflow,
   showLineNumbers,
@@ -59,6 +61,7 @@ function BbDiff({
       ? DEFAULT_DIFF_EXPANSION_LINE_COUNT
       : undefined;
   const containerRef = useRef<HTMLDivElement>(null);
+  useDiffSearchHighlights(containerRef, searchQuery);
   const codeTheme = useResolvedCodeThemePair();
   const themeType = usePreferredTheme();
   const buildSelectionText = useCallback(

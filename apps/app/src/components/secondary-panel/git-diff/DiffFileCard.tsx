@@ -129,6 +129,7 @@ export interface DiffFileCardProps {
   onOpenFilePreview?: (path: string) => void;
   onRequestFileContents?: RequestDiffFileContents;
   onSelectionAddToChat?: (text: string) => void;
+  searchQuery?: string;
 }
 
 function arePatchStatesEqual(a: DiffPatchState, b: DiffPatchState): boolean {
@@ -156,6 +157,7 @@ function areDiffFileCardPropsEqual(
     previous.onOpenFilePreview === next.onOpenFilePreview &&
     previous.onRequestFileContents === next.onRequestFileContents &&
     previous.onSelectionAddToChat === next.onSelectionAddToChat &&
+    previous.searchQuery === next.searchQuery &&
     arePatchStatesEqual(previous.patchState, next.patchState)
   );
 }
@@ -258,6 +260,7 @@ export const DiffFileCard = memo(function DiffFileCard({
   onOpenFilePreview,
   onRequestFileContents,
   onSelectionAddToChat,
+  searchQuery,
 }: DiffFileCardProps) {
   const headerModel = useMemo(() => buildDiffEntryHeaderModel(entry), [entry]);
   const parsedFile = useMemo<ParsedGitDiffFile | null>(() => {
@@ -367,6 +370,7 @@ export const DiffFileCard = memo(function DiffFileCard({
           onOpenFilePreview={onOpenFilePreview}
           onRequestFileContents={onRequestFileContents}
           onSelectionAddToChat={onSelectionAddToChat}
+          searchQuery={searchQuery}
           binaryImagePreviewState={
             shouldDirectlyPreviewBinaryImage
               ? binaryImagePreviewState
@@ -391,6 +395,7 @@ interface DiffFileCardBodyProps {
   onRequestFileContents?: RequestDiffFileContents;
   onSelectionAddToChat?: (text: string) => void;
   binaryImagePreviewState?: BinaryImagePreviewState;
+  searchQuery?: string;
 }
 
 const DIFF_FILE_CARD_NOTICE_CLASS =
@@ -438,6 +443,7 @@ function DiffFileCardBody({
   onRequestFileContents,
   onSelectionAddToChat,
   binaryImagePreviewState,
+  searchQuery,
 }: DiffFileCardBodyProps) {
   if (binaryImagePreviewState !== undefined) {
     if (
@@ -543,6 +549,7 @@ function DiffFileCardBody({
       onOpenFilePreview={onOpenFilePreview}
       onRequestFileContents={onRequestFileContents}
       onSelectionAddToChat={onSelectionAddToChat}
+      searchQuery={searchQuery}
     />
   );
 }
@@ -557,6 +564,7 @@ interface DiffFileCardRenderedBodyProps {
   onOpenFilePreview?: (path: string) => void;
   onRequestFileContents?: RequestDiffFileContents;
   onSelectionAddToChat?: (text: string) => void;
+  searchQuery?: string;
 }
 
 function DiffFileCardRenderedBody({
@@ -569,6 +577,7 @@ function DiffFileCardRenderedBody({
   onOpenFilePreview,
   onRequestFileContents,
   onSelectionAddToChat,
+  searchQuery,
 }: DiffFileCardRenderedBodyProps) {
   const bodyState = useGitDiffCardBody({
     fileDiff: parsedFile,
@@ -584,6 +593,7 @@ function DiffFileCardRenderedBody({
         svgDisplayMode={svgDisplayMode}
         reservesCollapseGutter
         onSelectionAddToChat={onSelectionAddToChat}
+        searchQuery={searchQuery}
       />
       {truncated ? (
         <div className={DIFF_FILE_CARD_NOTICE_CLASS}>
